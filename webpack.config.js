@@ -21,14 +21,38 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: ["babel-loader"]
+      },
+      {
+          "test": /\.(png|jpe?g|gif|svg)$/i,
+          "type": "asset/resource",
+        },
+        {
+          "test": /\.js$/,
+          "exclude": /node_modules/,
+          "use": {
+          "loader": "babel-loader",
+         },
+        },
+      {
+        test:/\.html$/,
+        use: [
+          'html-loader'
+        ]
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: 'asset/resource',
       }
     ]
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "src", "index.html")
-    }),
-    new MiniCssExtractPlugin()
-  ]
+  optimization: {
+    splitChunks: { chunks: "all" }
+  },
+   plugins: [
+      new HtmlWebpackPlugin({
+        template: path.resolve(__dirname, "src", "index.html")
+      }),
+      new MiniCssExtractPlugin()
+    ]
+  
 };
-
